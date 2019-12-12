@@ -28,5 +28,10 @@ Install this package into the current environment:
 conda install beautifulsoup4
 * Check to see if the newly installed program is in this environment:
 
-# remove (base)
+# remove '(base)'
 conda config --set auto_activate_base false
+
+# remove environment
+conda remove --name myenv --all
+
+
