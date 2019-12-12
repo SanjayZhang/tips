@@ -1,0 +1,32 @@
+conda update conda
+
+# Managing environment
+* Create a new environment and install a package in it.
+conda create --name snowflakes biopython
+* To use, or "activate" the new environment, type the following:
+conda activate snowflakes
+* To see a list of all your environments, type:
+conda info --envs
+* Change your current environment back to the default (base): 
+conda activate
+
+# Managing Python
+* Create a new environment named "snakes" that contains Python 3.5:
+conda create --name snakes python=3.5 
+* Activate the new environment:
+conda activate snakes
+* Verify that the snakes environment has been added and is active:
+conda info --envs
+*  To deactivate an active environment, use
+conda deactivate
+
+# Managing packages
+* first activate the environment you want to search
+* Check to see if a package you have not installed named "beautifulsoup4" is available from the Anaconda repository (must be connected to the Internet):
+conda search beautifulsoup4
+Install this package into the current environment:
+conda install beautifulsoup4
+* Check to see if the newly installed program is in this environment:
+
+# remove (base)
+conda config --set auto_activate_base false
