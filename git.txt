@@ -74,3 +74,8 @@ git commit -m "edit file1"
 
 # push changes to github
 git push
+
+
+-----------------
+* removing files from the staging area and the tree
+git rm [-r] --cached <file-name>
