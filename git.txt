@@ -50,8 +50,6 @@ git commit -m "my snapshot"
 git push --set-upstream origin my-branch
 
 
-
-
 Example: contribute to an existing branch on GitHub
 # assumption: a project called `repo` already exists on the machine, and a new branch has been pushed to GitHub.com since the last time changes were made locally
 
@@ -82,3 +80,7 @@ git rm [-r] --cached <file-name>
 
 * Credential
 git config credential.helper store
+
+* list config
+git config --list
+or: gcf
