@@ -1,0 +1,11 @@
+#ubuntu18.10
+
+adduser vulgar
+
+echo 'vulgar ALL=(ALL) ALL' >> /etc/sudoers
+
+vim /etc/ssh/sshd_config
+
+PermitRootLogin yes->no
+
+/etc/init.d/ssh restart

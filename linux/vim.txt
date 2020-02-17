@@ -1,0 +1,7 @@
+#substitude
+:8,10 s/search/replace/gc
+:%s/search/replace/gc
+
+# jump
+	jump back: ^O
+	jump forward: ^I

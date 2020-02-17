@@ -1,0 +1,11 @@
+# Backup The Whole System
+* Find drive letter of your  backup device
+sudo fdisk -l
+
+* Mount backup-device(optional)
+sudo mount /dev/sdb1/backup-folder /bkmnt
+
+* sudo rsync -aAXv / --exclude={"/dev/*","/proc/*","/sys/*","/tmp/*","/run/*","/mnt/*","/media/*","/lost+found"} /bkmnt
+
+* umount /bkmnt
+

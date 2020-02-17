@@ -1,0 +1,8 @@
+* .zip
+unzip files.zip
+
+* .gz
+gunzip file.gz
+
+* .rar
+unrar e file.rar

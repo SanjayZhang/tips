@@ -1,0 +1,5 @@
+* Create the RSA Key Pair(on the client machine)
+    ssh-keygen -t rsa
+
+* Copy the Public Key
+    ssh-copy-id demo@198.51.100.0

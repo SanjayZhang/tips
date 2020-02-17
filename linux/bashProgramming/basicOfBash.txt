@@ -1,0 +1,20 @@
+1. cd -
+
+2. wildcards:
+	? : Any single character
+	* : Any stirng  of characters
+	[set] : Any Character in set
+	[!set] Any character not in set
+
+	to refer to '!' in a set: [\!] or [a!bc](put after first the first element in the set)
+
+3. command can only see the result of wildcard expansion, not the process.
+
+4. wildcard expansion is part of pathname expansion.
+
+# Brace Expansion
+1. can be nested, e.g:
+	echo b{ar{d,n,k},ed}s
+	bards, barns, barks, and bedsthe first element in the set)
+
+2. 

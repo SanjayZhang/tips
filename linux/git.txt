@@ -1,0 +1,46 @@
+# Importing a new project
+cd project_file
+git init
+
+git add .
+git commit
+
+# Making chages
+git diff
+
+git add file1 file2
+
+git diff --cached
+
+git status
+
+git commit
+
+git commit -a
+
+# Viewing project history
+
+git log
+
+# Managing branches
+
+git branch experimental
+
+git checkout experimental
+
+(edit file)
+$ git commit -a
+$ git checkout master
+
+$ git merge experimental
+
+$ git diff
+
+$ git commit -a
+
+gitk
+
+$ git branch -d experimental
+
+# rename
+git branch -m new_name

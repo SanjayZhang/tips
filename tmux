@@ -1,6 +1,9 @@
 # create session
 tmux new
 tmux new -s [session-name]
+# rename session
+tmux rename-session [-t current-name] [new-name]
+
 
 # default prefix
 Ctrl-B

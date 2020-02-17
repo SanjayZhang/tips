@@ -1,0 +1,18 @@
+# Simple file download
+
+* wget url
+
+* wget -O filename.ext url
+
+* wget url1 url2
+
+* wget -i urls.txt
+
+* Resume download:
+    wget -c url
+
+* Download in background:
+    wget -b
+
+* Download Only Certain FIle Types:
+    wget -r -A .ext http://some-site.com/

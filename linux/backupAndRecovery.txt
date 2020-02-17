@@ -1,0 +1,7 @@
+* sudo apt-get autoclean (清除足够老旧的deb）
+* 拷贝/var/cache/apt/archives中的.deb文件
+
+* sudo dpkg -i *.deb
+* 第一遍后，会有因为缺少依赖，未安装成功的，再执行一遍上述命令
+
+

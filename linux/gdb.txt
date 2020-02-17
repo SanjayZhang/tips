@@ -1,0 +1,126 @@
+* n(next)
+Advance execution to the next line of the current function.
+
+* s(step)
+Goes to the next line to be execute in any subroutine.
+s
+s 5
+
+* bt(backtrece)
+
+* p(print)
+p variable
+
+* l(list)
+Display ten lines of source code surrounding the current line.
+
+* set value
+(gdb) s len_lquote=strlen(lquote)
+$5 = 7
+
+## set
+* set command setting value:
+set print elements 10
+* command -setting value -- [variables]
+print -elements 10 -- some_array
+
+## with
+w setting value [--command]
+
+## start, starti
+The ‘start’ command does the equivalent of setting a temporary breakpoint at the beginning of the main procedure and then invoking the ‘run’ command.
+
+The ‘starti’ command does the equivalent of setting a temporary breakpoint at the first instruction of a program’s execution and then invoking the ‘run’ command.
+
+# Breakpoints
+## Setting breakpoints
+* break locations
+location: line number / function name
+
+* break
+break sets a breakpoint at the next instruction to be executed in the selected stack frame,
+In any selected frame but the innermost, this makes your program stop as soon as control returns to that frame.
+If you use break without an argument in the innermost frame, GDB stops the next time it reaches the current location; this may be useful inside loops.
+
+* break location if cond
+* tbreak args: break only once
+* rbreak regex
+* rbreak file: regex
+
+* info breakpoints [list…]
+* info break [list…]
+The info break command shows the condition on the line following the affected breakpoint.
+info break displays a count of the number of times the breakpoint has been hit.
+
+## setting watchpoints
+* watch [-l|-location] expr [thread thread-id] [mask maskvalue]
+The -location argument tells GDB to instead watch the memory referred to by expr. In this case, GDB will evaluate expr, take the address of the result, and watch the memory at that address.
+
+* awatch
+Set a watchpoint that will break when expr is either read from or written into by the program.
+
+* info watchpoints [lists...]
+
+*
+If you watch for a change in a numerically entered address you need to dereference it, as the address itself is just a constant number which will never change. GDB refuses to create a watchpoint that watches a never-changing value:
+
+(gdb) watch 0x600850
+Cannot watch constant value 0x600850.
+(gdb) watch *(int *) 0x600850
+Watchpoint 1: *(int *) 6293584
+
+## Setting Catchpoints
+* catch events
+
+## Checkpoint (Snapshot)
+checkpoint
+info checkpoints
+restart checkpoint-id
+delete checkpoint checkpoint-id
+
+## Deleting Brekapoints
+* clear
+Delete any breakpoints at the next instruction to be executed in the selected stack frame (see Selecting a Frame). When the innermost frame is selected, this is a good way to delete a breakpoint where your program just stopped.
+* clear location
+* delete [breakpoints] [list…]
+
+## Enable or Disable
+* dis[able] [breakpoints] [list]
+* enable [breakpoints] [list…]
+* enable [breakpoints] once list…
+* enable [breakpoints] count count list…
+* enable [breakpoints] delete list…
+
+## Break Conditions
+* condition bnum expression
+* condition bnum
+remove the condition from breakpoint number bunm
+* ignore bnum count
+
+## Breakpoint Command Lists
+commands [list…]
+… command-list …
+end
+
+e.g:
+break foo if x>0
+commands
+silent
+printf "x is %d\n",x
+cont(continue)
+end
+
+e.g:
+break 403
+commands
+silent
+set x = y + 4
+cont
+end
+
+## Dynamic printf
+* dprintf location,template,expression[,expression…]
+Whenever execution reaches location, print the values of one or more expressions under the control of the string template. To print several values, separate them with commas.
+
+## Save Breakpoints to File
+* save breakpoints filename

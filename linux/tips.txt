@@ -1,0 +1,39 @@
+* 
+
+* flush DNS:
+    sudo /etc/init.d/dns-clean start
+
+* UUID: uuidgen
+
+* open a pdf file from terminal:
+    xdg-open file2open.xxx
+
+* tar
+    tar xzf file.tar.gz
+    tar xjf file.tar.bz2
+    tar xJf file.tar.xz
+
+    tar cvf fileToTar
+
+* don't lock after suspend
+    gsettings set org.gnome.desktop.screensaver ubuntu-lock-on-suspend false
+
+* uninstall
+    sudo apt-get --purge remove gimp
+	
+    sudo apt-get autoremove
+
+* mtime atime and ctime
+    m: modification time
+    a: access time
+    c: change time, updated whenever the attributes of the file changed.
+    
+
+* Check file size:
+    du -sh file_path
+    du -shc file_path
+  Check disk useage:
+    cd / && sudo du -hsx
+
+# uninstall：
+sudo dpkg --purge codeblocks-dev

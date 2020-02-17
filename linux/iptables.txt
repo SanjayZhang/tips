@@ -1,0 +1,55 @@
+https://www.booleanworld.com/depth-guide-iptables-linux-firewall/
+
+# tables, chains and targets
+
+The packet filtering mechanism provided by iptables is organized into three different kinds of structures: tables, chains and targets.
+
+## Tables
+
+* filter
+It is used to make decisions about whether a packet should be allowed to reach its destination.
+
+* mangle
+alter packet headers in various ways
+
+* nat
+route packets to different hosts on NAT (Network Address Translation) networks by changing the source and destination addresses of packets.
+
+* raw
+work with packets before the kernel starts tracking its state.
+
+
+
+## Chains
+Tables are composed of chains, which can filter packets at various points.
+
+* PREROUTING chain:
+apply to packets as they just arrive on the network interface. 
+
+* INPUT chain:
+apply to packets just before they’re given to a local process.
+
+* OUTPUT chain:
+apply to packets just after they’ve been produced by a process.
+
+* FORWARD chain:
+apply to any packets that are routed through the current host.
+
+* POSTROUTING chain:
+apply to packets as they just leave the network interface. 
+
+
+## Targets
+
+Targets decide the fate of a packet.
+
+### Terminating targets: ACCEPT, DROP and REJECT
+
+* Decide the fate of packets inmmediately
+
+* DROP vs REJECT
+DROP: iptables drops the packet. To anyone trying to connect to your system, it would appear like the system didn’t even exist.
+REJECT: iptables “rejects” the packet. It sends a “connection reset” packet in case of TCP, or a “destination host unreachable” packet in case of UDP or ICMP.
+
+### Non-terminating targets: LOG
+

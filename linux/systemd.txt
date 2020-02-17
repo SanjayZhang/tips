@@ -1,0 +1,75 @@
+https://www.digitalocean.com/community/tutorials/systemd-essentials-working-with-services-units-and-the-journal
+# Basic Unit Management
+
+* Unit
+    - service --> systemctl
+
+* systemctl start|stop|restart|reload nginx.service
+
+
+
+# Enabling or Disabling Units
+
+* not start at boot by default
+
+* systemctl enable|disalbe nginx.service
+
+
+
+# Getting an Overview of the System State
+
+* systemctl list-units [--all]
+
+* systemctl list-unit-files (see enabled status)
+
+
+
+# Viewing Basic Log Information
+    - journald
+
+* journalctl [-k(kernal)] [-b(boot)]
+
+
+
+# Querying Unit States and Logs
+
+* systemctl status nginx.service
+
+* journalctl [-b(limit the entries)]-u nginx.service
+
+
+
+# Inspecting Units and Unit Files
+
+* A unit file contains the parameters that systemd uses to manage and run a unit. To see the full contents of a unit file, type:
+    - systemctl cat nginx.service
+
+* systemctl list-dependencies nginx.service
+    - To expand all dependent units recursively, pass the --all flag:
+        systemctl list-dependencies --all nginx.service
+
+
+
+# Modifying Unit Files
+
+* systemctl edit [--full] nginx.service
+  systemctl daemon-reload
+
+
+
+# Using Targets (Runlevels)
+
+* systemctl list-unit-files --type=target
+
+* systemctl get-default
+
+* systemctl isolate multi-user.target
+
+* systemctl isolate multi-user.target
+
+
+
+# Stopping or Rebooting the Server
+
+* systemctl poweroff|reboot|rescue
+

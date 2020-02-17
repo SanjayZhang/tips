@@ -1,0 +1,6 @@
+#Ubuntu18
+vim /etc/ssh/sshd_config
+
+# Port 22 -> Port xxx
+
+service ssh restart

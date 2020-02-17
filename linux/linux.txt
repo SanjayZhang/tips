@@ -1,0 +1,255 @@
+#custom bash file
+/home/user/.bash_profile: login bashfile
+	if [ -f ~/.bashrc ]; then
+		source ~/.bashrc
+	fi
+/home/user/.bashrc: nonlogin bashfile
+
+* command substitution
+echo "your current work directory is $(pwd)"
+
+PS1="-> "
+	\u username of current user
+	\h hostname up to the first
+	\n newline
+	\s name of the shell
+	\t current time
+	\w currently work dir
+	\W basement of currently work dir
+	$(tput setaf 166) set colour as 166(orange)
+	$(tput sgr0) setback colour
+export PS1;
+
+e.g.:
+orange=$(tput setaf 166);
+yellow=$(tput setaf 228);
+green=$(tput setaf 71);
+white=$(tput setaf 15);
+bold=$(tput bold);
+reset=$(tput sgr0);
+
+PS1="\[${bold}\]\n";
+PS1+="\[${orange}\]\u";
+PS1+="\[${white}\] at ";
+PS1+="\[${yellow}\]\h";
+PS1+="\[${white}\] in ";
+PS1+="\[${green}\]\W";
+PS1+="\n";
+PS1+="\[${white}\]\$ \[${reset}\]"; # `$` (and reset color)
+
+
+
+#shortcuts
+^a ^e #move cursor to the begining or end of line
+option + left arrow #move one word
+option + click #move to the cursor to the clicked character
+^u #delete everything before cursor
+^k #``after``
+
+!cmd
+history
+history number
+!number
+^r
+
+^l #clean screen
+cmd + k #mac, clean scrollback
+
+
+
+#alias
+alias name='cmd; ...; cmd;' #write in .bash_profile or .bashrc
+alias #show all alias
+
+
+
+# find
+find finddir -options
+	-type [d|f]
+	-i?name "filename"
+	-mmin +-/d+ #in minutes
+	-mtime		#in days
+	-amin
+	-cmin
+	-size +-/d+[M|k]
+	-perm /d/d/d
+	-exec:
+		find finddir -exec commands {} +
+		# {}: space holder
+		# + : end mark
+	-maxdepth /d
+		# infinite by default
+
+
+
+# rsync
+rsunc -options origin destination
+	options:
+		-r #recurssive
+		-v #verbose
+		-a #archive, compound option, usually used
+		-Z compression
+		-P show process
+		--dry-run, -in
+		--delete #delete local(origin) file/dir if it doesn't exist in destination file/dir
+
+
+
+# grep - globle regex print
+grep -options "pattern" searchfile/dir
+	options
+		-w #Whole word
+		-i #case Insensitive
+		-n #line Number
+		-B /d+ #show /d+ lines Before matching line
+		-A /d+ #``After``
+		-C /d+ #``Context``
+		-r #recurssive
+		-l #only show what file contain the match
+		-c #show what file contain the match and display the number of matches
+		pipe:
+			history | grep "pattern"
+		-P #enable Perl compatible regex
+			#linux uses GNU grep, while mac uses BSD grep, which doesn't support -P,
+			to enable it on mac:
+				brew install grep --with-default-names
+
+
+
+# cURL - query url
+curl -o outputfile url
+
+
+
+
+# crontab - crontable
+* change default editor
+export EDITOR=/usr/bin/nano
+options:
+	-l #list sche
+	-u username #specific user by user name
+	sudo crontab #specific user as root
+	-r #remove schedule
+file:
+--------------------minute(0-59)
+| --------------------------hour(0-23)
+| | -------------------------------day of month(1-31)
+| | | ---------------------------------------month(1-12)
+| | | | | -----------------------------------------day of week(0-6) (sunday to saturday)
+| | | | |
+* * * * * commant_to_execute
+1,2,3 #1, 2 and 3
+*/10  #interval, one every 10
+0-5 #range
+
+
+
+# Create a Network of Machines in VirtualBox with SSH Access
+
+
+## by host-only netcard
+
+1. change guestsystem's username
+sudo nano /etc/hostname, type in uername
+sudo nano /etc/hosts, change the old hostname to the new one you want
+
+2. set gusetsystem's network settings: network-adapter2(host-only)
+
+3. sudo nano /etc/network/interfaces
+write in:
+	# find networkinterface by ipconfig -a, choose the 2ed interface(i.e., the host-only
+	# one, usually enp0s8), find address and netmask in virtualbox-files-host network 
+	manager(CRTW+W, for now, it's 192.168.56.1, 255.255.255.0).
+	auto networkinterface
+	iface networkinterface inet static
+	address
+	netmask
+
+4. sudo reboot(now, do ifconfig -a, the enp0s8 will be what you just set about).
+
+5. install ssh server
+sudo apt-get update
+sudo apt-get install openssh-server
+# sudo service ssh restart
+
+6. bind hostname of guest system with its IP address in host system
+sudo nano /etc/hosts,write IP hostname
+
+## by port forwarding
+1. install guestOS
+2. login gutstOS
+	1. ifconfig -a | grep inet %my result is 10.0.2.15
+	2. check ssh servise:
+		* sudo service ssh status.
+		* if not show: active(runing), run
+		  sudo apt-get install openssh-server
+		  and do sudo service ssh status again.
+	3. gusetOS--settings--network--advance--port forwarding, add record:
+	   Name|Protocol|HostIP|HostPort|           Guest IP              | Guest Port
+	   ssh | TCP | 127.0.0.1 | 2222 | inet addr(this time, 10.0.2.15) | 22
+	   %note: use "netstat" to check whether a port is available or not.
+3. in hostOS, ssh -p 2222 username@127.0.0.1, done!
+
+
+# ssh key
+## manually
+* local:
+cd
+ssh-keygen -t rsa -b4096
+scp ~/.ssh/id_rsa.pub zhang@ubuntu_1:/home/zhang/.ssh/uploaded_key.pub
+* remote:
+	cat ~/.ssh/uploaded_key.pub >> ~/.ssh/authorized_keys
+	cat ~/.ssh/authorized_keys #check if exist
+	chmod 700 ~/.ssh/
+	chmod 600 ~/.ssh/*
+	sudo cp /etc/ssh/sshd_config /etc/ssh/sshd_config.bak #backup
+	sudo nano /etc/ssh/ssh_config #find PasswordAuthentication, uncomment, set as no
+	sudo service ssh restart
+
+
+## automatically
+local:
+ssh-keygen -t rsa -b4096
+#for mac: brew install ssh-copy-id
+ssh-copy-id username@ipAddress
+
+## path
+ln -s linked link
+e.g., ln -s ........./notepad++ /usr/local/bin/notepad++
+
+
+
+#file transfer
+##scp
+*from server to local:
+scp root@seattle-1:/home/zhang/mingw ./here
+scp -P 2222 file_In_T460 zhang@127.0.0.1:/home/zhang/file
+
+# Download
+wget "http://domain.com/directory/4?action=AttachFile&do=view&target=file.tgz" 
+to download the file to the current directory.
+
+wget  -P /home/omio/Desktop/ "http://thecanadiantestbox.x10.mx/CC.zip"
+will download the file to /home/omio/Desktop
+
+wget  -O /home/omio/Desktop/NewFileName "http://thecanadiantestbox.x10.mx/CC.zip"
+will download the file to /home/omio/Desktop and give it your NewFileName name.
+
+# uninstall
+* dpkg --list
+to see all installed packages
+
+* apt-get --purge remove softwareName
+to remove all info of sowareName, to remain configuration files, leave out the "--purge" 
+command.
+
+* sudo apt-get autoremove
+to remove any unused packages
+
+* sudo apt-get purge --auto-remove gimp
+to remove a program and dependencies that are no longer being used.
+
+
+
+# count codes line
+find . -name '*.java' | xargs wc -l
