@@ -75,6 +75,7 @@ git push
 
 
 -----------------
+
 * removing files from the staging area and the tree
 git rm [-r] --cached <file-name>
 
@@ -84,3 +85,6 @@ git config credential.helper store
 * list config
 git config --list
 or: gcf
+
+* reset changes
+git reset --hard
