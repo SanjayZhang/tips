@@ -73,7 +73,6 @@ git commit -m "edit file1"
 # push changes to github
 git push
 
-
 -----------------
 
 * removing files from the staging area and the tree
@@ -88,3 +87,6 @@ or: gcf
 
 * reset changes
 git reset --hard
+
+* remove remote origin:
+git remote rm origin
