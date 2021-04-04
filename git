@@ -90,3 +90,6 @@ git reset --hard
 
 * remove remote origin:
 git remote rm origin
+
+* delete branch
+git branch -d 
